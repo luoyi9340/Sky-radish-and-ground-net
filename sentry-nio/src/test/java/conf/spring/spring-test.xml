@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+
+	
+	<import resource="classpath:conf/spring/spring-init-sentry-nio.xml"/>
+	
+	
+	<!-- 测试server端 -->
+    <bean id="testServer" class="org.sentry.nio.server.impl.DefaultServerImpl" >
+    	<property name="bossGroupSize" value="${sentry-nio.netty.boss}" />
+    	<property name="workerGroupSize" value="${sentry-nio.netty.group}" />
+    	<property name="port" value="30001" />
+    	<property name="channelInitializer" >
+    		<bean class="org.sentry.nio.channel.SentryNioChannelInitializer" >
+    			<property name="msgCoderAppender">
+					<bean class="org.sentry.nio.msg.json.JsonCoderAppender" ></bean>
+    			</property>
+    			<property name="handlerAppender">
+    				<bean class="org.sentry.nio.handly.test.TestHandlerAppender" ></bean>
+    			</property>
+    		</bean>
+    	</property>
+    </bean>
+    
+    
+    <!-- 测试client -->
+	<bean id="testClient" class="org.sentry.nio.client.impl.DefaultClientImpl" >
+    	<property name="threadPoolSize" value="${sentry-nio.netty.group}" />
+    	<property name="host" value="127.0.0.1" />
+    	<property name="port" value="30001" />
+    	<property name="channelInitializer" >
+    		<bean class="org.sentry.nio.channel.SentryNioChannelInitializer" >
+    			<property name="msgCoderAppender">
+    				<bean class="org.sentry.nio.msg.json.JsonCoderAppender" ></bean>
+    			</property>
+    			<property name="handlerAppender">
+    				<bean class="org.sentry.nio.handly.test.TestHandlerAppender" ></bean>
+    			</property>
+    		</bean>
+    	</property>
+    </bean>
+	
+</beans>

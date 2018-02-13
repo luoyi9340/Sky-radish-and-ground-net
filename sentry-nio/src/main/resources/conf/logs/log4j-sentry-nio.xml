@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>
+
+	<!-- 
+	<appender name="rootAppender" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="logs/root.log" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />
+		<param name="encoding" value="UTF-8"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS},%p,%c{1},%X{tuid},%m%n" />
+		</layout>
+	</appender>
+	<root>
+		<level value="WARN" />
+		<appender-ref ref="rootAppender" />
+	</root>
+	 -->
+	 
+	
+	<!-- 消息handler先关日志 -->
+	<appender name="sentryNioReadHandlerAppender" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="logs/sentry-nio-read-handler.log"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss},%p,%c{1},%M,%m%n"/>
+        </layout>
+    </appender>
+    <logger name="sentry-nio-read-handler" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="sentryNioReadHandlerAppender"/>
+    </logger>
+    <appender name="sentryNioWriteHandlerAppender" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="logs/sentry-nio-write-handler.log"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss},%p,%c{1},%M,%m%n"/>
+        </layout>
+    </appender>
+    <logger name="sentry-nio-write-handler" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="sentryNioWriteHandlerAppender"/>
+    </logger>
+	 
+	 
+	<!-- 消息编解码相关日志 -->
+	<appender name="sentryNioDecoderAppender" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="logs/sentry-nio-decoder.log"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss},%p,%c{1},%M,%m%n"/>
+        </layout>
+    </appender>
+    <logger name="sentry-nio-decoder" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="sentryNioDecoderAppender"/>
+    </logger>
+	<appender name="sentryNioEncoderAppender" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="logs/sentry-nio-encoder.log"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss},%p,%c{1},%M,%m%n"/>
+        </layout>
+    </appender>
+    <logger name="sentry-nio-encoder" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="sentryNioEncoderAppender"/>
+    </logger>
+	
+    
+    <!-- 默认日志 -->
+    <appender name="sentryNioAppender" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="logs/sentry-nio.log"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss},%p,%c{1},%M,%m%n"/>
+        </layout>
+    </appender>
+    <logger name="sentry-nio" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="sentryNioAppender"/>
+    </logger>
+	
+
+</log4j:configuration> 

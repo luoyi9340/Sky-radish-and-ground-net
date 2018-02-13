@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+
+	<!-- 确认资源回调，当收到需要确认资源才能回复选票时执行的回调 -->
+    
+    
+    <!-- 确认当前master是否活着 -->
+	<bean class="org.sentry.group.resolution.impl.confirm_resources.cofirm_master.ConfirmMasterHandler" />    
+    
+    <!-- 演示demo：每秒产生随机数0 ~ 100，小于10则询问其他人是否也小于10 -->
+    <bean class="org.sentry.group.resolution.impl.confirm_resources.demo.DemoResolutionFactory" />
+    <!-- 演示demo申明handler（当主发起某项资源后，作为成员需要发出投票） -->
+    <bean class="org.sentry.group.resolution.impl.confirm_resources.demo.DemoResolutionHandler" />
+    <!-- 定义检测线程 -->
+    <bean class="org.sentry.group.resolution.impl.confirm_resources.demo.DemoThread" />
+    
+    
+</beans>

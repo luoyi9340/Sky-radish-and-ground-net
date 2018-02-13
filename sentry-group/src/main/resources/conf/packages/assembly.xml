@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assembly>
+	<id>${project.version}</id>
+	<!-- 最终打包成一个用于发布的zip文件 -->
+	<formats>
+		<format>zip</format>
+	</formats>
+
+	<!-- Adds dependencies to zip package under lib directory -->
+	<dependencySets>
+		<dependencySet>
+			<!-- 不使用项目的artifact，第三方jar不要解压，打包进zip文件的lib目录 -->
+			<useProjectArtifact>false</useProjectArtifact>
+			<outputDirectory>libs</outputDirectory>
+			<unpack>false</unpack>
+		</dependencySet>
+	</dependencySets>
+
+	<fileSets>
+		<!-- 把项目根目录相关的说明文件，脚本文件，打包进zip文件的根目录 -->
+		<fileSet>
+			<directory>${project.basedir}</directory>
+			<outputDirectory>/</outputDirectory>
+			<includes>
+				<include>README*</include>
+				<include>LICENSE*</include>
+				<include>NOTICE*</include>
+				<include>*.sh</include>
+				<include>*.bat</include>
+			</includes>
+		</fileSet>
+
+		<!-- 把项目的配置文件，打包进zip文件的resources目录 -->
+		<fileSet>
+			<directory>${project.basedir}/src/main/resources</directory>
+			<outputDirectory>/resources</outputDirectory>
+			<includes>
+				<include>**/*.xml</include>
+				<include>**/*.properties</include>
+				<include>**/*.template</include>
+				<include>**/*.key</include>
+			</includes>
+			<!-- 过滤掉package包里的东西，那个就是打包xml本身 -->
+			<excludes>
+				<exclude>conf/packages/*</exclude>
+			</excludes>
+		</fileSet>
+
+		<!-- 把项目的脚本文件目录（ src/main/scripts ）中的启动脚本文件，打包进zip文件的跟目录 -->
+		<!-- 脚本文件直接放根目录了 -->
+		<!-- <fileSet> <directory>${project.build.scriptSourceDirectory}</directory> 
+			<outputDirectory></outputDirectory> <includes> <include>startup.*</include> 
+			</includes> </fileSet> -->
+		
+		<!-- 把所有打出来的jar文件，打包进zip文件的根目录（包含bin和sources） -->
+		<fileSet>
+			<directory>${project.build.directory}</directory>
+			<outputDirectory></outputDirectory>
+			<includes>
+				<include>*.jar</include>
+			</includes>
+		</fileSet>
+	</fileSets>
+</assembly>

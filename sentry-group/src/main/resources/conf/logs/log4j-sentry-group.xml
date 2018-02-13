@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>
+
+	<appender name="rootAppender" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="logs/root.log" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />
+		<param name="encoding" value="UTF-8"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS},%p,%c{1},%X{tuid},%m%n" />
+		</layout>
+	</appender>
+	<root>
+		<level value="INFO" />
+		<appender-ref ref="rootAppender" />
+	</root>
+	 
+	
+	<!-- 确认资源是否有效 -->
+	<appender name="sentryResolutionConfirmResourcesAppender" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="logs/sentry-resolution-confirm-resources.log"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss},%p,%c{1},%M,%m%n"/>
+        </layout>
+    </appender>
+    <logger name="sentry-resolution-confirm-resources" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="sentryResolutionConfirmResourcesAppender"/>
+    </logger>
+	<!-- 寻主决议 -->
+	<appender name="sentryResolutionAskMasterAppender" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="logs/sentry-resolution-ask-master.log"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss},%p,%c{1},%M,%m%n"/>
+        </layout>
+    </appender>
+    <logger name="sentry-resolution-ask-master" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="sentryResolutionAskMasterAppender"/>
+    </logger>
+    <!-- 广播主当选 -->
+    <appender name="sentryResolutionElectedMasterAppender" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="logs/sentry-resolution-elected-master.log"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss},%p,%c{1},%M,%m%n"/>
+        </layout>
+    </appender>
+    <logger name="sentry-resolution-elected-master" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="sentryResolutionElectedMasterAppender"/>
+    </logger>
+	<!-- 决议相关 -->
+	<appender name="sentryResolutionPoolAppender" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="logs/sentry-resolution-pool.log"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss},%p,%c{1},%M,%m%n"/>
+        </layout>
+    </appender>
+    <logger name="sentry-resolution-pool" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="sentryResolutionPoolAppender"/>
+    </logger>
+	<appender name="sentryResolutionMemberAppender" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="logs/sentry-resolution-member.log"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss},%p,%c{1},%M,%m%n"/>
+        </layout>
+    </appender>
+    <logger name="sentry-resolution-member" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="sentryResolutionMemberAppender"/>
+    </logger>
+	<appender name="sentryResolutionAppender" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="logs/sentry-resolution.log"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss},%p,%c{1},%M,%m%n"/>
+        </layout>
+    </appender>
+    <logger name="sentry-resolution" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="sentryResolutionAppender"/>
+    </logger>
+	
+	 
+	<!-- 通讯等待回执相关日志 -->
+    <appender name="sentryGroupComReceiptAppender" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="logs/sentry-group-com-receipt.log"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss},%p,%c{1},%M,%m%n"/>
+        </layout>
+    </appender>
+    <logger name="sentry-group-com-receipt" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="sentryGroupComReceiptAppender"/>
+    </logger>
+	<!-- 通讯相关日志 -->
+    <appender name="sentryGroupComAppender" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="logs/sentry-group-com.log"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss},%p,%c{1},%M,%m%n"/>
+        </layout>
+    </appender>
+    <logger name="sentry-group-com" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="sentryGroupComAppender"/>
+    </logger>
+	 
+    
+    <!-- 默认日志 -->
+    <appender name="sentryGroupAppender" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="logs/sentry-group.log"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss},%p,%c{1},%M,%m%n"/>
+        </layout>
+    </appender>
+    <logger name="sentry-group" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="sentryGroupAppender"/>
+    </logger>
+	
+
+</log4j:configuration> 

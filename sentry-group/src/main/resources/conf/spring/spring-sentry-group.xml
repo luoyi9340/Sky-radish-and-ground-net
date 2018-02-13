@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+
+
+	<bean id="sentryGroupConfiguration"
+		class="org.sentry.group.commons.GroupConfiguration">
+		<property name="order" value="2"></property>
+		<property name="ignoreUnresolvablePlaceholders" value="true" />   
+		<property name="locations">
+			<list>
+				<value>classpath:conf/properties/sentry-group.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+	
+	<!-- 加载自己的日志 -->
+    <bean id="sentryGroupLogIniter" class="org.sentry.commons.LogIniter" >
+    	<property name="log4j" value="conf/logs/log4j-sentry-group.xml" />
+    </bean>
+	
+
+    <!-- 加载sentry.nio -->
+    <import resource="classpath*:conf/spring/spring-init-sentry-nio.xml"/>
+    
+    
+    <!-- 通讯清单 -->
+    <bean id="communicationList" class="org.sentry.group.node.CommunicationList" ></bean>
+    <!-- 通讯器 -->
+    <bean id="com" class="org.sentry.group.com.ComImpl" >
+    	<property name="communicationList" ref="communicationList" />
+    </bean>
+    
+    <!-- 资源确认池子 -->
+    <bean id="confirmPool" class="org.sentry.group.node.ConfirmResourceCallbackPool" />
+    <!-- 决议池子 -->
+    <bean id="resolutionPool" class="org.sentry.group.node.ResolutionPool" />
+    
+    <!-- 哨兵配置 -->
+    <bean id="teamMembers" class="org.sentry.group.node.TeamMembers" >
+    	<property name="com" ref="com" />
+    	<property name="communicationList" ref="communicationList" />
+    	<property name="confirmPool" ref="confirmPool" />
+    	<property name="resolutionPool" ref="resolutionPool" />
+    </bean>
+    
+    
+	<!-- 引入各种确认回调 -->
+    <import resource="classpath:conf/spring/spring-sentry-confirm-pool.xml" />
+    
+</beans>
